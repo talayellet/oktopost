@@ -1,0 +1,42 @@
+{
+  "name": "social-post-component",
+  "version": "1.0.0",
+  "description": "A reusable social media post web component built with vanilla JavaScript and Web Components API",
+  "main": "src/social-post.js",
+  "scripts": {
+    "test": "open tests/index.html",
+    "dev": "open index.html",
+    "serve": "python3 -m http.server 8000"
+  },
+  "keywords": [
+    "web-components",
+    "social-media",
+    "vanilla-javascript",
+    "custom-elements",
+    "shadow-dom"
+  ],
+  "author": "Developer",
+  "license": "MIT",
+  "files": [
+    "src/",
+    "index.html",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/username/social-post-component.git"
+  },
+  "bugs": {
+    "url": "https://github.com/username/social-post-component/issues"
+  },
+  "homepage": "https://github.com/username/social-post-component#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "Chrome >= 54",
+    "Firefox >= 63",
+    "Safari >= 10.1",
+    "Edge >= 79"
+  ]
+}

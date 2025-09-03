@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Social Post Component Demo</title>
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: #f5f5f5;
+        min-height: 100vh;
+      }
+
+      .demo-container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        text-align: center;
+        color: #364358;
+        margin-bottom: 40px;
+      }
+
+      .demo-section {
+        margin-bottom: 40px;
+      }
+
+      .demo-section h2 {
+        color: #364358;
+        margin-bottom: 20px;
+      }
+
+      .demo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+
+      .controls {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        border: 1px solid #dee4ed;
+        margin-bottom: 20px;
+      }
+
+      .controls h3 {
+        margin-top: 0;
+        color: #364358;
+      }
+
+      .control-group {
+        margin-bottom: 15px;
+      }
+
+      .control-group label {
+        display: block;
+        margin-bottom: 5px;
+        color: #627288;
+        font-weight: 500;
+      }
+
+      .control-group input,
+      .control-group textarea,
+      .control-group select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #dee4ed;
+        border-radius: 4px;
+        font-family: inherit;
+      }
+
+      .control-group textarea {
+        resize: vertical;
+        min-height: 80px;
+      }
+
+      .button-group {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+      }
+
+      .button-group button {
+        padding: 8px 16px;
+        border: 1px solid #dee4ed;
+        border-radius: 4px;
+        background: white;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .button-group button:hover {
+        background: #f0f0f0;
+      }
+
+      .code-example {
+        background: #f8f9fa;
+        border: 1px solid #dee4ed;
+        border-radius: 4px;
+        padding: 15px;
+        margin: 20px 0;
+        overflow-x: auto;
+      }
+
+      .code-example pre {
+        margin: 0;
+        font-family: "Monaco", "Menlo", monospace;
+        font-size: 12px;
+      }
+
+      @media (max-width: 768px) {
+        .demo-grid {
+          grid-template-columns: 1fr;
+        }
+
+        body {
+          padding: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="demo-container">
+      <h1>🐦 Social Post Web Component Demo</h1>
+
+      <div class="demo-section">
+        <h2>Interactive Demo</h2>
+        <div class="controls">
+          <h3>Customize the Post</h3>
+          <div class="control-group">
+            <label for="displayName">Display Name:</label>
+            <input type="text" id="displayName" value="Jane Doe" />
+          </div>
+          <div class="control-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" value="janedoe" />
+          </div>
+          <div class="control-group">
+            <label for="avatar">Avatar URL:</label>
+            <input
+              type="text"
+              id="avatar"
+              value="https://images.unsplash.com/photo-1494790108755-2616b612b1fc?w=100&h=100&fit=crop&crop=face"
+            />
+          </div>
+          <div class="control-group">
+            <label for="timestamp">Timestamp:</label>
+            <input type="text" id="timestamp" value="2h ago" />
+          </div>
+          <div class="control-group">
+            <label for="content">Content:</label>
+            <textarea id="content">
+It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</textarea
+            >
+          </div>
+          <div class="control-group">
+            <label for="likes">Likes:</label>
+            <input type="number" id="likes" value="42" />
+          </div>
+          <div class="control-group">
+            <label for="theme">Theme:</label>
+            <select id="theme">
+              <option value="light">Light</option>
+              <option value="dark">Dark</option>
+            </select>
+          </div>
+          <div class="button-group">
+            <button onclick="updatePost()">Update Post</button>
+            <button onclick="addLike()">Add Like</button>
+            <button onclick="toggleTheme()">Toggle Theme</button>
+          </div>
+        </div>
+
+        <div class="demo-grid">
+          <social-post
+            id="demo-post"
+            username="janedoe"
+            display-name="Jane Doe"
+            avatar="https://images.unsplash.com/photo-1494790108755-2616b612b1fc?w=100&h=100&fit=crop&crop=face"
+            timestamp="2h ago"
+            content="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
+            likes="42"
+            theme="light"
+          >
+          </social-post>
+        </div>
+      </div>
+
+      <div class="demo-section">
+        <h2>Example Posts</h2>
+        <div class="demo-grid">
+          <social-post
+            username="johndoe"
+            display-name="John Doe"
+            avatar="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face"
+            timestamp="5m ago"
+            content="Just shipped a new feature! 🚀 Love working with Web Components."
+            likes="15"
+            theme="light"
+          >
+          </social-post>
+
+          <social-post
+            username="sarasmith"
+            display-name="Sara Smith"
+            avatar="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face"
+            timestamp="1h ago"
+            content="Beautiful sunset today! Sometimes you need to stop and appreciate the little things in life. 🌅"
+            likes="128"
+            theme="dark"
+          >
+          </social-post>
+
+          <social-post
+            username="devmike"
+            display-name="Mike Johnson"
+            avatar="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
+            timestamp="3h ago"
+            content="Learning about Web Components today. The Shadow DOM is fascinating! 💡"
+            likes="67"
+            theme="light"
+          >
+          </social-post>
+
+          <social-post
+            username="designguru"
+            display-name="Alex Chen"
+            avatar="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&h=100&fit=crop&crop=face"
+            timestamp="6h ago"
+            content="Short post!"
+            likes="23"
+            theme="dark"
+          >
+          </social-post>
+        </div>
+      </div>
+
+      <div class="demo-section">
+        <h2>Usage Examples</h2>
+
+        <h3>HTML Attributes</h3>
+        <div class="code-example">
+          <pre>
+&lt;social-post
+  username="janedoe"
+  display-name="Jane Doe"
+  avatar="https://example.com/avatar.jpg"
+  timestamp="2h ago"
+  content="Your post content here..."
+  likes="42"
+  theme="light"&gt;
+&lt;/social-post&gt;</pre
+          >
+        </div>
+
+        <h3>JavaScript Properties</h3>
+        <div class="code-example">
+          <pre>
+const post = document.createElement('social-post');
+post.username = 'johndoe';
+post.displayName = 'John Doe';
+post.avatar = 'https://example.com/avatar.jpg';
+post.content = 'Hello world!';
+post.likes = 15;
+post.theme = 'dark';
+document.body.appendChild(post);</pre
+          >
+        </div>
+
+        <h3>Methods</h3>
+        <div class="code-example">
+          <pre>
+// Increment likes
+post.incrementLikes();
+
+// Change theme
+post.setTheme('dark');</pre
+          >
+        </div>
+      </div>
+    </div>
+
+    <script src="src/social-post.js"></script>
+    <script>
+      function updatePost() {
+        const post = document.getElementById("demo-post");
+        post.displayName = document.getElementById("displayName").value;
+        post.username = document.getElementById("username").value;
+        post.avatar = document.getElementById("avatar").value;
+        post.timestamp = document.getElementById("timestamp").value;
+        post.content = document.getElementById("content").value;
+        post.likes = document.getElementById("likes").value;
+        post.theme = document.getElementById("theme").value;
+      }
+
+      function addLike() {
+        const post = document.getElementById("demo-post");
+        post.incrementLikes();
+        document.getElementById("likes").value = post.likes;
+      }
+
+      function toggleTheme() {
+        const post = document.getElementById("demo-post");
+        const newTheme = post.theme === "light" ? "dark" : "light";
+        post.setTheme(newTheme);
+        document.getElementById("theme").value = newTheme;
+      }
+
+      // Add some interactivity to all posts
+      document.addEventListener("DOMContentLoaded", function () {
+        const posts = document.querySelectorAll("social-post");
+        posts.forEach((post) => {
+          // Simulate random like increases
+          setInterval(() => {
+            if (Math.random() < 0.1) {
+              // 10% chance every 5 seconds
+              post.incrementLikes();
+            }
+          }, 5000);
+        });
+      });
+    </script>
+  </body>
+</html>
