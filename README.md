@@ -4,7 +4,13 @@
 
 Create a `<social-post>` custom HTML element that visually simulates a social media post (like a tweet or Facebook post), using Vanilla JavaScript (Web Components) and Vanilla CSS. The component should be reusable, responsive, and accessible, and should not rely on any third-party libraries or frameworks.
 
-![Social Post Examples](https://via.placeholder.com/800x300/f0f0f0/333333?text=Light+and+Dark+Theme+Examples)
+### Light Theme
+
+![Light Theme Example](resources/light-theme.png)
+
+### Dark Theme
+
+![Dark Theme Example](resources/dark-theme.png)
 
 ## Technical Requirements
 
