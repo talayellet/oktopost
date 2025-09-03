@@ -1,13 +1,16 @@
+import {
+  getThemeVars,
+  truncateContent,
+  isContentTruncated,
+} from "./social-post/utils.js";
 import { renderSocialPostTemplate } from "./social-post/template.js";
-import { getThemeVars } from "./social-post/utils.js";
-
 const styleUrl = new URL("./social-post/styles.css", import.meta.url);
-
 class SocialPost extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
     this._isExpanded = false;
+    this._likes = parseInt(this.getAttribute("likes")) || 0;
   }
 
   static get observedAttributes() {
@@ -28,6 +31,9 @@ class SocialPost extends HTMLElement {
 
   attributeChangedCallback(name, oldValue, newValue) {
     if (oldValue !== newValue) {
+      if (name === "likes") {
+        this._likes = parseInt(newValue) || 0;
+      }
       if (name === "theme") {
         this.updateTheme(newValue);
       } else {
@@ -68,9 +74,10 @@ class SocialPost extends HTMLElement {
     this.setAttribute("content", value);
   }
   get likes() {
-    return parseInt(this.getAttribute("likes")) || 0;
+    return this._likes;
   }
   set likes(value) {
+    this._likes = value;
     this.setAttribute("likes", value.toString());
   }
   get theme() {
@@ -162,7 +169,7 @@ class SocialPost extends HTMLElement {
         avatar: this.avatar,
         timestamp: this.timestamp,
         content: this.content,
-        likes: this.likes,
+        likes: this._likes,
         theme: this.theme,
       },
       this._isExpanded
@@ -171,5 +178,4 @@ class SocialPost extends HTMLElement {
     this.setupEventListeners();
   }
 }
-
 customElements.define("social-post", SocialPost);
