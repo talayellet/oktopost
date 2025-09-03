@@ -1,8 +1,6 @@
 /* Social Post Component Styles */
 /* This file contains the extracted CSS for the social-post component */
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap");
-
 /* Component host styles */
 :host {
   display: block;
