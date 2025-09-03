@@ -1,6 +1,4 @@
 /* Social Post Component Styles */
-/* This file contains the extracted CSS for the social-post component */
-
 /* Component host styles */
 :host {
   display: block;
@@ -10,11 +8,24 @@
 }
 
 /* Main container */
-.post-container {
-  border-radius: 8px;
-  padding: 16px;
-  transition: all 0.3s ease;
-  position: relative;
+:host {
+  display: block;
+  max-width: 400px;
+  font-family: sans-serif;
+  line-height: 1.5;
+  --color-bg: #ffffff;
+  --color-border: #dee4ed;
+  --color-primary: #364358;
+  --color-secondary: #627288;
+  --color-avatar-bg: #dee4ed;
+}
+:host(.dark),
+:host([theme="dark"]) {
+  --color-bg: #21242b;
+  --color-border: #a4b1c4;
+  --color-primary: #e8ecf3;
+  --color-secondary: #a4b1c4;
+  --color-avatar-bg: #a4b1c4;
 }
 
 /* Light theme */
@@ -22,11 +33,9 @@
   background: #ffffff;
   border: 1px solid #dee4ed;
 }
-
-/* Dark theme */
-.post-container.dark {
-  background: #21242b;
-  border: 1px solid #a4b1c4;
+.post-container {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
 }
 
 /* Header section */
@@ -36,9 +45,8 @@
   gap: 8px;
   margin-bottom: 16px;
 }
-
-/* Avatar */
 .avatar {
+  background: var(--color-avatar-bg);
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -47,10 +55,9 @@
 
 .avatar.light {
   background: #dee4ed;
-}
-
-.avatar.dark {
-  background: #a4b1c4;
+  .display-name {
+    color: var(--color-primary);
+  }
 }
 
 /* User information */
@@ -64,12 +71,8 @@
   margin: 0;
 }
 
-.display-name.light {
-  color: #364358;
-}
-
-.display-name.dark {
-  color: #e8ecf3;
+.display-name {
+  color: var(--color-primary);
 }
 
 .username-timestamp {
@@ -77,12 +80,8 @@
   margin: 0;
 }
 
-.username-timestamp.light {
-  color: #627288;
-}
-
-.username-timestamp.dark {
-  color: #a4b1c4;
+.username-timestamp {
+  color: var(--color-secondary);
 }
 
 /* Post content */
@@ -92,12 +91,8 @@
   word-wrap: break-word;
 }
 
-.post-content.light {
-  color: #364358;
-}
-
-.post-content.dark {
-  color: #e8ecf3;
+.post-content {
+  color: var(--color-primary);
 }
 
 .post-content.truncated {
@@ -119,12 +114,8 @@
   text-decoration: underline;
 }
 
-.see-more-button.light {
-  color: #627288;
-}
-
-.see-more-button.dark {
-  color: #a4b1c4;
+.see-more-button {
+  color: var(--color-secondary);
 }
 
 .see-more-button:hover {
@@ -152,20 +143,12 @@
   font-size: 12px;
 }
 
-.like-button.light {
-  color: #627288;
+.like-button {
+  color: var(--color-secondary);
 }
 
-.like-button.dark {
-  color: #a4b1c4;
-}
-
-.like-button.light:hover {
-  background: rgba(98, 114, 136, 0.1);
-}
-
-.like-button.dark:hover {
-  background: rgba(164, 177, 196, 0.1);
+.like-button:hover {
+  background: var(--color-hover-bg, rgba(98, 114, 136, 0.1));
 }
 
 .like-button.pulse {
@@ -191,14 +174,9 @@
   font-size: 12px;
 }
 
-.theme-switcher.light {
-  border: 1px solid #dee4ed;
-  color: #627288;
-}
-
-.theme-switcher.dark {
-  border: 1px solid #a4b1c4;
-  color: #a4b1c4;
+.theme-switcher {
+  border: 1px solid var(--color-border);
+  color: var(--color-secondary);
 }
 
 .theme-switcher:hover {
@@ -245,12 +223,8 @@
 
 /* High contrast mode support */
 @media (prefers-contrast: high) {
-  .post-container.light {
-    border-color: #000000;
-  }
-
-  .post-container.dark {
-    border-color: #ffffff;
+  .post-container {
+    border-color: var(--color-high-contrast-border);
   }
 }
 
@@ -258,7 +232,7 @@
 .like-button:focus,
 .see-more-button:focus,
 .theme-switcher:focus {
-  outline: 2px solid #0066cc;
+  outline: 2px solid var(--color-focus-outline);
   outline-offset: 2px;
 }
 
@@ -269,11 +243,11 @@
   }
 
   .post-container {
-    border: 1px solid #000000;
-    background: #ffffff;
+    border: 1px solid var(--color-print-border);
+    background: var(--color-print-bg);
   }
 
   .post-container * {
-    color: #000000 !important;
+    color: var(--color-print-text);
   }
 }
