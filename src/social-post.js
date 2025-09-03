@@ -26,7 +26,11 @@ class SocialPost extends HTMLElement {
 
   attributeChangedCallback(name, oldValue, newValue) {
     if (oldValue !== newValue) {
-      this.render();
+      if (name === "theme") {
+        this.updateTheme(newValue);
+      } else {
+        this.render();
+      }
     }
   }
 
@@ -97,6 +101,53 @@ class SocialPost extends HTMLElement {
     this.theme = theme;
   }
 
+  updateTheme(theme) {
+    if (!this.shadowRoot.innerHTML) {
+      // If not rendered yet, do a full render
+      this.render();
+      return;
+    }
+
+    // Update CSS custom properties for smooth theme transition
+    const container = this.shadowRoot.querySelector(".post-container");
+    if (container) {
+      container.style.setProperty(
+        "--bg-color",
+        theme === "dark" ? "#21242B" : "#FFFFFF"
+      );
+      container.style.setProperty(
+        "--border-color",
+        theme === "dark" ? "#A4B1C4" : "#DEE4ED"
+      );
+      container.style.setProperty(
+        "--text-primary",
+        theme === "dark" ? "#E8ECF3" : "#364358"
+      );
+      container.style.setProperty(
+        "--text-secondary",
+        theme === "dark" ? "#A4B1C4" : "#627288"
+      );
+      container.style.setProperty(
+        "--hover-bg",
+        theme === "dark"
+          ? "rgba(164, 177, 196, 0.1)"
+          : "rgba(98, 114, 136, 0.1)"
+      );
+
+      // Update theme switcher button content and aria-label
+      const themeSwitcher = this.shadowRoot.querySelector(".theme-switcher");
+      if (themeSwitcher) {
+        themeSwitcher.textContent = theme === "light" ? "🌙" : "☀️";
+        themeSwitcher.setAttribute(
+          "aria-label",
+          `Switch to ${theme === "light" ? "dark" : "light"} theme`
+        );
+        themeSwitcher.onclick = () =>
+          this.setTheme(theme === "light" ? "dark" : "light");
+      }
+    }
+  }
+
   animateHeart() {
     const heartButton = this.shadowRoot.querySelector(".like-button");
     heartButton.classList.add("pulse");
@@ -107,7 +158,40 @@ class SocialPost extends HTMLElement {
 
   toggleContent() {
     this._isExpanded = !this._isExpanded;
-    this.render();
+
+    // Update content without full re-render for smoother transition
+    const contentElement = this.shadowRoot.querySelector(".post-content");
+    const seeMoreButton = this.shadowRoot.querySelector(".see-more-button");
+
+    if (contentElement) {
+      contentElement.textContent = this.getDisplayContent();
+
+      // Update content display style
+      if (!this._isExpanded && this.isContentTruncated()) {
+        contentElement.style.cssText += `
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        `;
+      } else {
+        contentElement.style.display = "block";
+        contentElement.style.webkitLineClamp = "none";
+        contentElement.style.lineClamp = "none";
+        contentElement.style.webkitBoxOrient = "unset";
+        contentElement.style.overflow = "visible";
+      }
+    }
+
+    if (seeMoreButton) {
+      seeMoreButton.textContent = this._isExpanded ? "See less" : "See more";
+      seeMoreButton.setAttribute("aria-expanded", this._isExpanded);
+      seeMoreButton.setAttribute(
+        "aria-label",
+        this._isExpanded ? "Show less content" : "Show more content"
+      );
+    }
   }
 
   isContentTruncated() {
@@ -147,11 +231,15 @@ class SocialPost extends HTMLElement {
         }
 
         .post-container {
-          background: ${this.theme === "dark" ? "#21242B" : "#FFFFFF"};
-          border: 1px solid ${this.theme === "dark" ? "#A4B1C4" : "#DEE4ED"};
+          background: var(--bg-color, ${
+            this.theme === "dark" ? "#21242B" : "#FFFFFF"
+          });
+          border: 1px solid var(--border-color, ${
+            this.theme === "dark" ? "#A4B1C4" : "#DEE4ED"
+          });
           border-radius: 8px;
           padding: 16px;
-          transition: all 0.3s ease;
+          transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
           position: relative;
         }
 
@@ -167,7 +255,10 @@ class SocialPost extends HTMLElement {
           height: 40px;
           border-radius: 50%;
           object-fit: cover;
-          background: ${this.theme === "dark" ? "#A4B1C4" : "#DEE4ED"};
+          background: var(--border-color, ${
+            this.theme === "dark" ? "#A4B1C4" : "#DEE4ED"
+          });
+          transition: background-color 0.3s ease;
         }
 
         .user-info {
@@ -177,21 +268,30 @@ class SocialPost extends HTMLElement {
         .display-name {
           font-size: 14px;
           font-weight: 500;
-          color: ${this.theme === "dark" ? "#E8ECF3" : "#364358"};
+          color: var(--text-primary, ${
+            this.theme === "dark" ? "#E8ECF3" : "#364358"
+          });
           margin: 0;
+          transition: color 0.3s ease;
         }
 
         .username-timestamp {
           font-size: 12px;
-          color: ${this.theme === "dark" ? "#A4B1C4" : "#627288"};
+          color: var(--text-secondary, ${
+            this.theme === "dark" ? "#A4B1C4" : "#627288"
+          });
           margin: 0;
+          transition: color 0.3s ease;
         }
 
         .post-content {
           font-size: 16px;
-          color: ${this.theme === "dark" ? "#E8ECF3" : "#364358"};
+          color: var(--text-primary, ${
+            this.theme === "dark" ? "#E8ECF3" : "#364358"
+          });
           margin-bottom: 16px;
           word-wrap: break-word;
+          transition: color 0.3s ease;
           ${
             !this._isExpanded && this.isContentTruncated()
               ? `
@@ -208,13 +308,16 @@ class SocialPost extends HTMLElement {
         .see-more-button {
           background: none;
           border: none;
-          color: ${this.theme === "dark" ? "#A4B1C4" : "#627288"};
+          color: var(--text-secondary, ${
+            this.theme === "dark" ? "#A4B1C4" : "#627288"
+          });
           cursor: pointer;
           font-size: 14px;
           padding: 4px 0;
           margin-top: 4px;
           text-decoration: underline;
           border-radius: 2px;
+          transition: color 0.3s ease, opacity 0.2s ease;
         }
 
         .see-more-button:hover {
@@ -241,17 +344,19 @@ class SocialPost extends HTMLElement {
           cursor: pointer;
           padding: 8px;
           border-radius: 20px;
-          transition: all 0.2s ease;
-          color: ${this.theme === "dark" ? "#A4B1C4" : "#627288"};
+          transition: background-color 0.2s ease, color 0.3s ease;
+          color: var(--text-secondary, ${
+            this.theme === "dark" ? "#A4B1C4" : "#627288"
+          });
           font-size: 12px;
         }
 
         .like-button:hover {
-          background: ${
+          background: var(--hover-bg, ${
             this.theme === "dark"
               ? "rgba(164, 177, 196, 0.1)"
               : "rgba(98, 114, 136, 0.1)"
-          };
+          });
         }
 
         .like-button:focus {
@@ -280,12 +385,17 @@ class SocialPost extends HTMLElement {
           top: 16px;
           right: 16px;
           background: none;
-          border: 1px solid ${this.theme === "dark" ? "#A4B1C4" : "#DEE4ED"};
+          border: 1px solid var(--border-color, ${
+            this.theme === "dark" ? "#A4B1C4" : "#DEE4ED"
+          });
           border-radius: 4px;
           padding: 4px 8px;
           cursor: pointer;
           font-size: 12px;
-          color: ${this.theme === "dark" ? "#A4B1C4" : "#627288"};
+          color: var(--text-secondary, ${
+            this.theme === "dark" ? "#A4B1C4" : "#627288"
+          });
+          transition: border-color 0.3s ease, color 0.3s ease, opacity 0.2s ease;
         }
 
         .theme-switcher:hover {
@@ -394,6 +504,8 @@ class SocialPost extends HTMLElement {
       </article>
     `;
 
+    // Set initial CSS custom properties for theme
+    this.updateTheme(this.theme);
     this.setupEventListeners();
   }
 }
