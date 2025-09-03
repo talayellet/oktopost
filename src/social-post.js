@@ -131,7 +131,25 @@ class SocialPost extends HTMLElement {
 
   toggleContent() {
     this._isExpanded = !this._isExpanded;
-    this.render();
+    // Only update the content and button, not the whole shadow DOM
+    const contentText = this.shadowRoot.querySelector(".content-text");
+    const seeMoreButton = this.shadowRoot.querySelector(".see-more-button");
+    if (contentText) {
+      const truncated = isContentTruncated(this.content);
+      const displayContent =
+        !truncated || this._isExpanded
+          ? this.content
+          : truncateContent(this.content);
+      contentText.textContent = displayContent;
+    }
+    if (seeMoreButton) {
+      seeMoreButton.textContent = this._isExpanded ? "See less" : "See more";
+      seeMoreButton.setAttribute("aria-expanded", this._isExpanded);
+      seeMoreButton.setAttribute(
+        "aria-label",
+        this._isExpanded ? "Show less content" : "Show more content"
+      );
+    }
   }
 
   setupEventListeners() {

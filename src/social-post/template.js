@@ -36,7 +36,7 @@ export function renderSocialPostTemplate(props, isExpanded) {
         </div>
       </header>
       <div class="post-content" role="main">
-        ${displayContent}
+        <span class="content-text">${displayContent}</span>
       </div>
       ${
         truncated
