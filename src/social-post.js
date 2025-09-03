@@ -33,6 +33,14 @@ class SocialPost extends HTMLElement {
     if (oldValue !== newValue) {
       if (name === "likes") {
         this._likes = parseInt(newValue) || 0;
+        // Only update the likes count in the DOM, do not re-render
+        if (this.shadowRoot) {
+          const likesSpan = this.shadowRoot.querySelector(".like-button span");
+          if (likesSpan) {
+            likesSpan.textContent = this._likes;
+          }
+        }
+        return;
       }
       if (name === "theme") {
         this.updateTheme(newValue);
@@ -79,6 +87,13 @@ class SocialPost extends HTMLElement {
   set likes(value) {
     this._likes = value;
     this.setAttribute("likes", value.toString());
+    // Only update the likes count in the DOM if already rendered
+    if (this.shadowRoot) {
+      const likesSpan = this.shadowRoot.querySelector(".like-button span");
+      if (likesSpan) {
+        likesSpan.textContent = value;
+      }
+    }
   }
   get theme() {
     return this.getAttribute("theme") || "light";
@@ -178,6 +193,8 @@ class SocialPost extends HTMLElement {
       this.shadowRoot.appendChild(this._styleSheet);
     }
     // Render template
+    // Save current likes value to restore after rerender
+    const prevLikes = this._likes;
     this.shadowRoot.innerHTML = "";
     this.shadowRoot.appendChild(this._styleSheet);
     this.shadowRoot.innerHTML += renderSocialPostTemplate(
@@ -187,7 +204,7 @@ class SocialPost extends HTMLElement {
         avatar: this.avatar,
         timestamp: this.timestamp,
         content: this.content,
-        likes: this._likes,
+        likes: prevLikes,
         theme: this.theme,
       },
       this._isExpanded

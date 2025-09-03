@@ -1,4 +1,4 @@
-// Data for social-post demo cards
+// Mock data for social-post demo cards
 export const posts = [
   {
     username: "johndoe",

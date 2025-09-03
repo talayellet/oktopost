@@ -12,8 +12,7 @@
   border: 1px solid var(--border-color, #dee4ed);
   border-radius: 8px;
   padding: 16px;
-  transition: background-color 0.3s ease, border-color 0.3s ease,
-    color 0.3s ease;
+  transition: border-color 0.3s ease, color 0.3s ease;
   position: relative;
 }
 
@@ -30,7 +29,6 @@
   border-radius: 50%;
   object-fit: cover;
   background: var(--border-color, #dee4ed);
-  transition: background-color 0.3s ease;
 }
 
 .user-info {
@@ -97,7 +95,7 @@
   cursor: pointer;
   padding: 8px;
   border-radius: 20px;
-  transition: background-color 0.2s ease, color 0.3s ease;
+  transition: color 0.3s ease;
   color: var(--text-secondary, #627288);
   font-size: 12px;
 }
