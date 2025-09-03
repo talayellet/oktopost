@@ -1,20 +1,34 @@
-/* Demo page styles moved from index.html */
+/* Root variables for demo page and component */
+:root {
+  --font-family: "Inter", sans-serif;
+  --background: #f5f5f5;
+  --container-max-width: 800px;
+  --color-primary: #364358;
+  --color-secondary: #627288;
+  --color-bg: #ffffff;
+  --color-border: #dee4ed;
+  --color-hover-bg: #f0f0f0;
+  --code-bg: #f8f9fa;
+  --code-font-family: "Monaco", "Menlo", monospace;
+}
+
+/* Demo page styles */
 body {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-family);
   margin: 0;
   padding: 20px;
-  background: #f5f5f5;
+  background: var(--background);
   min-height: 100vh;
 }
 
 .demo-container {
-  max-width: 800px;
+  max-width: var(--container-max-width);
   margin: 0 auto;
 }
 
 h1 {
   text-align: center;
-  color: #364358;
+  color: var(--color-primary);
   margin-bottom: 40px;
 }
 
@@ -23,7 +37,7 @@ h1 {
 }
 
 .demo-section h2 {
-  color: #364358;
+  color: var(--color-primary);
   margin-bottom: 20px;
 }
 
@@ -35,16 +49,16 @@ h1 {
 }
 
 .controls {
-  background: white;
+  background: var(--color-bg);
   padding: 20px;
   border-radius: 8px;
-  border: 1px solid #dee4ed;
+  border: 1px solid var(--color-border);
   margin-bottom: 20px;
 }
 
 .controls h3 {
   margin-top: 0;
-  color: #364358;
+  color: var(--color-primary);
 }
 
 .control-group {
@@ -54,7 +68,7 @@ h1 {
 .control-group label {
   display: block;
   margin-bottom: 5px;
-  color: #627288;
+  color: var(--color-secondary);
   font-weight: 500;
 }
 
@@ -63,7 +77,7 @@ h1 {
 .control-group select {
   width: 100%;
   padding: 8px;
-  border: 1px solid #dee4ed;
+  border: 1px solid var(--color-border);
   border-radius: 4px;
   font-family: inherit;
 }
@@ -81,20 +95,20 @@ h1 {
 
 .button-group button {
   padding: 8px 16px;
-  border: 1px solid #dee4ed;
+  border: 1px solid var(--color-border);
   border-radius: 4px;
-  background: white;
+  background: var(--color-bg);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .button-group button:hover {
-  background: #f0f0f0;
+  background: var(--color-hover-bg);
 }
 
 .code-example {
-  background: #f8f9fa;
-  border: 1px solid #dee4ed;
+  background: var(--code-bg);
+  border: 1px solid var(--color-border);
   border-radius: 4px;
   padding: 15px;
   margin: 20px 0;
@@ -103,7 +117,7 @@ h1 {
 
 .code-example pre {
   margin: 0;
-  font-family: "Monaco", "Menlo", monospace;
+  font-family: var(--code-font-family);
   font-size: 12px;
 }
 
@@ -119,36 +133,36 @@ h1 {
 /* Component host styles */
 :host {
   display: block;
-  max-width: 400px;
-  font-family: "Inter", sans-serif;
+  max-width: var(--post-max-width);
+  font-family: var(--font-family);
   line-height: 1.5;
 }
 
 /* Main container */
 :host {
   display: block;
-  max-width: 400px;
-  font-family: sans-serif;
+  max-width: var(--post-max-width);
+  font-family: var(--font-family);
   line-height: 1.5;
-  --color-bg: #ffffff;
-  --color-border: #dee4ed;
-  --color-primary: #364358;
-  --color-secondary: #627288;
-  --color-avatar-bg: #dee4ed;
+  --color-bg: var(--color-bg);
+  --color-border: var(--color-border);
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-avatar-bg: var(--color-avatar-bg);
 }
 :host(.dark),
 :host([theme="dark"]) {
-  --color-bg: #21242b;
-  --color-border: #a4b1c4;
-  --color-primary: #e8ecf3;
-  --color-secondary: #a4b1c4;
-  --color-avatar-bg: #a4b1c4;
+  --color-bg: var(--color-bg-dark);
+  --color-border: var(--color-border-dark);
+  --color-primary: var(--color-primary-dark);
+  --color-secondary: var(--color-secondary-dark);
+  --color-avatar-bg: var(--color-avatar-bg-dark);
 }
 
 /* Light theme */
 .post-container.light {
-  background: #ffffff;
-  border: 1px solid #dee4ed;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
 }
 .post-container {
   background: var(--color-bg);
@@ -171,7 +185,7 @@ h1 {
 }
 
 .avatar.light {
-  background: #dee4ed;
+  background: var(--color-avatar-bg);
   .display-name {
     color: var(--color-primary);
   }
@@ -265,7 +279,7 @@ h1 {
 }
 
 .like-button:hover {
-  background: var(--color-hover-bg, rgba(98, 114, 136, 0.1));
+  background: var(--color-hover-bg);
 }
 
 .like-button.pulse {
@@ -349,7 +363,7 @@ h1 {
 .like-button:focus,
 .see-more-button:focus,
 .theme-switcher:focus {
-  outline: 2px solid var(--color-focus-outline);
+  outline: 2px solid var(--focus-outline);
   outline-offset: 2px;
 }
 

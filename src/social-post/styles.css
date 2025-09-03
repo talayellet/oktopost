@@ -8,8 +8,8 @@
 }
 
 .post-container {
-  background: var(--bg-color, #ffffff);
-  border: 1px solid var(--border-color, #dee4ed);
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 16px;
   transition: border-color 0.3s ease, color 0.3s ease;
@@ -28,7 +28,7 @@
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  background: var(--border-color, #dee4ed);
+  background: var(--border-color);
 }
 
 .user-info {
@@ -38,21 +38,21 @@
 .display-name {
   font-size: 14px;
   font-weight: 500;
-  color: var(--text-primary, #364358);
+  color: var(--text-primary);
   margin: 0;
   transition: color 0.3s ease;
 }
 
 .username-timestamp {
   font-size: 12px;
-  color: var(--text-secondary, #627288);
+  color: var(--text-secondary);
   margin: 0;
   transition: color 0.3s ease;
 }
 
 .post-content {
   font-size: 16px;
-  color: var(--text-primary, #364358);
+  color: var(--text-primary);
   margin-bottom: 16px;
   word-wrap: break-word;
   transition: color 0.3s ease;
@@ -61,7 +61,7 @@
 .see-more-button {
   background: none;
   border: none;
-  color: var(--text-secondary, #627288);
+  color: var(--text-secondary);
   cursor: pointer;
   font-size: 14px;
   padding: 4px 0;
@@ -76,7 +76,7 @@
 }
 
 .see-more-button:focus {
-  outline: 2px solid #0066cc;
+  outline: 2px solid var(--focus-outline);
   outline-offset: 2px;
 }
 
@@ -96,7 +96,7 @@
   padding: 8px;
   border-radius: 20px;
   transition: color 0.3s ease;
-  color: var(--text-secondary, #627288);
+  color: var(--text-secondary);
   font-size: 12px;
 }
 
@@ -105,7 +105,7 @@
 }
 
 .like-button:focus {
-  outline: 2px solid #0066cc;
+  outline: 2px solid var(--focus-outline);
   outline-offset: 2px;
 }
 
@@ -136,12 +136,12 @@
   top: 16px;
   right: 16px;
   background: none;
-  border: 1px solid var(--border-color, #dee4ed);
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   padding: 4px 8px;
   cursor: pointer;
   font-size: 12px;
-  color: var(--text-secondary, #627288);
+  color: var(--text-secondary);
   transition: border-color 0.3s ease, color 0.3s ease, opacity 0.2s ease;
 }
 
@@ -150,7 +150,7 @@
 }
 
 .theme-switcher:focus {
-  outline: 2px solid #0066cc;
+  outline: 2px solid var(--focus-outline);
   outline-offset: 2px;
 }
 
