@@ -1,0 +1,281 @@
+/* Social Post Component Styles */
+/* This file contains the extracted CSS for the social-post component */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap");
+
+/* Component host styles */
+:host {
+  display: block;
+  max-width: 400px;
+  font-family: "Inter", sans-serif;
+  line-height: 1.5;
+}
+
+/* Main container */
+.post-container {
+  border-radius: 8px;
+  padding: 16px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* Light theme */
+.post-container.light {
+  background: #ffffff;
+  border: 1px solid #dee4ed;
+}
+
+/* Dark theme */
+.post-container.dark {
+  background: #21242b;
+  border: 1px solid #a4b1c4;
+}
+
+/* Header section */
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+/* Avatar */
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar.light {
+  background: #dee4ed;
+}
+
+.avatar.dark {
+  background: #a4b1c4;
+}
+
+/* User information */
+.user-info {
+  flex: 1;
+}
+
+.display-name {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.display-name.light {
+  color: #364358;
+}
+
+.display-name.dark {
+  color: #e8ecf3;
+}
+
+.username-timestamp {
+  font-size: 12px;
+  margin: 0;
+}
+
+.username-timestamp.light {
+  color: #627288;
+}
+
+.username-timestamp.dark {
+  color: #a4b1c4;
+}
+
+/* Post content */
+.post-content {
+  font-size: 16px;
+  margin-bottom: 16px;
+  word-wrap: break-word;
+}
+
+.post-content.light {
+  color: #364358;
+}
+
+.post-content.dark {
+  color: #e8ecf3;
+}
+
+.post-content.truncated {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* See more/less button */
+.see-more-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+  margin-top: 4px;
+  text-decoration: underline;
+}
+
+.see-more-button.light {
+  color: #627288;
+}
+
+.see-more-button.dark {
+  color: #a4b1c4;
+}
+
+.see-more-button:hover {
+  opacity: 0.8;
+}
+
+/* Actions section */
+.post-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Like button */
+.like-button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 20px;
+  transition: all 0.2s ease;
+  font-size: 12px;
+}
+
+.like-button.light {
+  color: #627288;
+}
+
+.like-button.dark {
+  color: #a4b1c4;
+}
+
+.like-button.light:hover {
+  background: rgba(98, 114, 136, 0.1);
+}
+
+.like-button.dark:hover {
+  background: rgba(164, 177, 196, 0.1);
+}
+
+.like-button.pulse {
+  animation: heartPulse 0.3s ease;
+}
+
+/* Heart icon */
+.heart-icon {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+/* Theme switcher */
+.theme-switcher {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.theme-switcher.light {
+  border: 1px solid #dee4ed;
+  color: #627288;
+}
+
+.theme-switcher.dark {
+  border: 1px solid #a4b1c4;
+  color: #a4b1c4;
+}
+
+.theme-switcher:hover {
+  opacity: 0.8;
+}
+
+/* Animations */
+@keyframes heartPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .post-container {
+    padding: 12px;
+  }
+
+  .post-header {
+    margin-bottom: 12px;
+  }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .like-button.pulse,
+  .post-container {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .post-container.light {
+    border-color: #000000;
+  }
+
+  .post-container.dark {
+    border-color: #ffffff;
+  }
+}
+
+/* Focus styles for accessibility */
+.like-button:focus,
+.see-more-button:focus,
+.theme-switcher:focus {
+  outline: 2px solid #0066cc;
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  .theme-switcher {
+    display: none;
+  }
+
+  .post-container {
+    border: 1px solid #000000;
+    background: #ffffff;
+  }
+
+  .post-container * {
+    color: #000000 !important;
+  }
+}
