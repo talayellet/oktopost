@@ -4,7 +4,7 @@
   "description": "A reusable social media post web component built with vanilla JavaScript and Web Components API",
   "main": "src/social-post.js",
   "scripts": {
-    "test": "open tests/index.html",
+    "test": "python3 -m http.server 5500 & sleep 1 && open http://localhost:5500/tests/index.html",
     "dev": "open index.html",
     "serve": "python3 -m http.server 8000"
   },
@@ -15,7 +15,7 @@
     "custom-elements",
     "shadow-dom"
   ],
-  "author": "Developer",
+  "author": "Ayellet Tal",
   "license": "MIT",
   "files": [
     "src/",
